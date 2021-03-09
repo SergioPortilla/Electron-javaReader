@@ -1,0 +1,144 @@
+html {
+    background: #242424;
+    color: aliceblue;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+.EJR_head {
+    position: fixed;
+    z-index: 2;
+    background: #242424;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc( 100vw - 6em);
+    height: 4.5em;
+    padding: 0 3em;
+    -webkit-box-shadow: 0 0 24px 10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 0 24px 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 24px 10px rgba(0,0,0,0.5);
+}
+
+.EJR_head_title {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+.EJR_head_logo {
+    width: 2em;
+    padding-right: 1em;
+}
+
+.EJR_head_button {
+    background-color: yellowgreen;
+    border-radius: .2em;
+    color: #242424;
+    font-size: 12px;
+    font-weight: bolder;
+    padding: .8em;
+}
+
+.EJR_head_code {
+    width: 2em;
+    padding-right: 1em;
+}
+
+.EJR {
+    width: 100vw;
+    height: calc(100vh - 4.5em);
+    position: absolute;
+    display: flex;
+    top: 4.5em;
+}
+
+.EJR_code, .EJR_listing {
+    width: 100%;
+    z-index: 0;
+}
+
+.EJR_listing {
+    height: calc(100% - 4em);
+    background: #242424;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2em 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.EJR_code {
+    background-color: #151515;
+    padding: 1em 1em 1em 0;
+    overflow: auto;
+    height: calc(100% - 2em);
+    border-right: slategray .3em solid;
+    -webkit-box-shadow: inset -8em 0 8em -11em rgba(154,205,50,0.72);
+    -moz-box-shadow: inset -8em 0 8em -11em rgba(154,205,50,0.72);
+    box-shadow: inset -8em 0 8em -11em rgba(154,205,50,0.72);
+}
+
+.data  {
+    display: none;
+    width: 80%;
+    min-height: 5vh;
+    margin-bottom: 1em;
+    height: min-content;
+    border-radius: .5em;
+}
+
+.EJR_listing-green {
+    background-color: rgba(154,205,50,0.2);
+    border: .5em solid rgb(92, 126, 16);
+}
+
+.EJR_listing-blue {
+    background-color: rgba(50, 107, 205,0.2);
+    border: .5em solid rgb(16, 44, 126);
+}
+
+.EJR_listing-yellow {
+    background-color: rgba(205, 171, 50,0.2);
+    border: .5em solid rgb(126, 108, 16);
+}
+
+.EJR_listing-cyan {
+    background-color: rgba(50, 205, 205,0.2);
+    border: .5em solid rgb(16, 126, 126);
+}
+
+.EJR_listing-purple {
+    background-color: rgba(104, 50, 205,0.2);
+    border: .5em solid rgb(62, 16, 126);
+}
+
+.EJR_listing-red {
+    background-color: rgba(205, 50, 50,0.2);
+    border: .5em solid rgb(126, 16, 16);
+}
+
+.line {
+    display: inline-flex;
+    width: 100%;
+}
+
+.line:hover {
+    background-color: #626262;
+}
+
+.number {
+    width: 2.5em;
+    display: inline-flex;
+    margin-right: .5em;
+    background-color: #242424;
+    color: #626262;
+    padding-left: 1em;
+    border-right: 2px solid #626262 ;
+}
+

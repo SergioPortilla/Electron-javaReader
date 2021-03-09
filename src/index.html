@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hola mundo!</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <script type="text/javascript" src="main.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div class="EJR_head">
+    <div class="EJR_head_title"> <img class="EJR_head_logo" src="assets/logo-electron.svg" alt=""> <div>Electron Java Reader</div></div>
+    <div class="EJR_head_button">GENERATE LISTINGS</div>
+</div>
+<div class="EJR">
+    <div class="EJR_code">
+        <input type="file" id="inputfile" onchange="algo(this)">
+        <pre id="output"></pre>
+    </div>
+    <div class="EJR_listing">
+        <div id="import" class="data EJR_listing-green"></div>
+        <div id="class" class="data EJR_listing-blue"></div>
+        <div id="attribute" class="data EJR_listing-yellow"></div>
+        <div id="method" class="data EJR_listing-cyan"></div>
+        <div id="enum" class="data EJR_listing-purple"></div>
+        <div id="interface" class="data EJR_listing-red"></div>
+    </div>
+</div>
+</body>
+</html>
