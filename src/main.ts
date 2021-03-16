@@ -158,6 +158,7 @@ function sourceCodeResolver (input: any) {
     reader.onload = function() {
         if (typeof reader.result === "string") {
             let word = reader.result.split(/\r?\n/gm);
+            let algo: string[] = [];
             word.forEach(line => {
                 for (let letter = 0; letter < line.length; letter++) {
                     for (let regex = 0; regex < tokenizers.length; regex ++) {
