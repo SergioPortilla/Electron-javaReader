@@ -9,18 +9,42 @@
 </head>
 <body>
 <div class="EJR_head">
-    <div class="EJR_head_title"> <img class="EJR_head_logo" src="assets/logo-electron.svg" alt=""> <div>Electron Java Reader</div></div>
+    <div class="EJR_head_title">
+        <img class="EJR_head_logo" src="assets/logo-electron.svg" id="logo1" alt="">
+        <img class="EJR_head_logo" src="assets/logo-electron2.svg" id="logo2" alt="">
+        <div>Electron Java Reader</div></div>
+    <div>
+        <input type="radio" name="rdo" id="regex" checked onclick="selectOption('regex')"/>
+        <input type="radio" name="rdo" id="scan" onclick="selectOption('scan')"/>
+        <div class="switch">
+            <label for="regex">Regex</label>
+            <label for="scan">Scan</label>
+            <span></span>
+        </div>
+    </div>
+
     <div id="open" class="EJR_head_button button">
         <input type="file" id="inputFile" onchange="algo(this)">
         <label for="inputFile">SELECT FILE...</label>
     </div>
-    <div id="close" class="EJR_head_button_close button" onclick="closeFile()">CLOSE FILE ✖</div>
+    <div id="close" class="EJR_head_button_close button" onclick="closeFile(true)">CLOSE FILE ✖</div>
 </div>
 <div class="EJR">
-    <div class="EJR_code">
+    <div class="EJR_code" id="EJR_code">
+        <div class="scan" id="scan_box">
+            <div id="insertTokenizer" class="token_button button">
+                <input type="file" id="tokensList" onchange="setterTokenizer(this)">
+                <label for="tokensList">ADD TOKENS LIST</label>
+            </div>
+            <div id="insertCodeResolver" class="token_button button">
+                <input type="file" id="sourceCode" onchange="sourceCodeResolver(this)">
+                <label for="sourceCode">ADD SOURCE CODE</label>
+            </div>
+        </div>
         <pre id="output"></pre>
     </div>
     <div class="EJR_listing">
+        <pre id="esteotro"></pre>
         <div id="import" class="data"></div>
         <div id="class" class="data"></div>
         <div id="attribute" class="data"></div>

@@ -1,4 +1,5 @@
-import { BrowserWindow } from 'electron';
+import {BrowserWindow} from 'electron';
+import { Tokenizer } from "./model/tokenizer";
 
 export default class Main {
     static mainWindow: Electron.BrowserWindow;
@@ -27,7 +28,7 @@ export default class Main {
 
 
 /** ************************************************************************************* */
-export function algo(input: any) {
+function algo(input: any) {
     let inFile: HTMLElement | null  = document.getElementById("inputFile");
     let outText: HTMLElement | null = document.getElementById("output");
     if (outText && inFile) {
@@ -102,7 +103,7 @@ function isOpenFile() {
     }
 }
 
-function closeFile() {
+function closeFile(keepButton: boolean = false) {
     const fields: string[] = ['method', 'import','class', 'enum','interface', 'attribute'];
     fields.forEach(e => {
         const field = document.getElementById(e);
@@ -113,5 +114,89 @@ function closeFile() {
     })
     const data = document.getElementById('output');
     if (data) { data.innerHTML = ''}
-    isOpenFile();
+    if (keepButton) {
+        isOpenFile();
+    }
+}
+
+let tokenizerText: string = '';
+function regexExpresion(listOfExpressions: string[]) : Tokenizer[]{
+    let tokenizerList: Tokenizer[] = [];
+    listOfExpressions.forEach(line => {
+        const split = line.split(/( \, )/).filter(a => a !== " , ");
+        let tokenize =  {
+            regex : new RegExp(split[0]),
+            value : split[1] ? split[1] : 'Signo desconocido',
+            description : split[2] ? split[2] : ''
+        };
+        tokenizerList.push(tokenize);
+    })
+    return tokenizerList;
+}
+
+function setterTokenizer(input: any) {
+    let file = input.files[0];
+    let reader = new FileReader();
+    reader.readAsText(file);
+
+    reader.onload = () => {
+        if (typeof reader.result === "string") {
+            tokenizerText = reader.result;
+            regexExpresion(reader.result.split(/\r?\n/gm));
+        }
+    }
+
+    reader.onerror = () => console.log(reader.error);
+}
+
+function sourceCodeResolver (input: any) {
+    let tokenizers: Tokenizer[] = regexExpresion(tokenizerText.split(/\r?\n/gm));
+    let tokenizer: HTMLElement | null  = document.getElementById("esteotro");
+    let file = input.files[0];
+    let reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = function() {
+        if (typeof reader.result === "string") {
+            let word = reader.result.split(/\r?\n/gm);
+            word.forEach(line => {
+                for (let letter = 0; letter < line.length; letter++) {
+                    for (let regex = 0; regex < tokenizers.length; regex ++) {
+                        // @ts-ignore
+                        if(tokenizers[regex].regex.test(line.charAt(letter))) {
+                            if (tokenizer) {
+                                tokenizer.innerHTML += '\n' +
+                                    `<div class="panel">
+                                        <div class="panel-symbol">${line.charAt(letter)}</div>
+                                        <div class="panel-description">
+                                            <div class="panel-title">${tokenizers[regex].value} <hr></div>
+                                            <div class="panel-info">${tokenizers[regex].description}</div>
+                                        </div>
+                                    </div>`;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+}
+
+let option: string = 'regex';
+function selectOption(selected: string) {
+    const scanner = document.getElementById('scan_box');
+    const regex = document.getElementById('open');
+    const logo1 = document.getElementById('logo1');
+    const logo2 = document.getElementById('logo2');
+    const panel = document.getElementById('EJR_code');
+    if(scanner && panel && logo1 && logo2 && regex) {
+        scanner.style.display = selected === 'scan' ? 'flex' : 'none';
+        logo1.style.display = selected !== 'scan' ? 'flex' : 'none';
+        regex.style.display = selected !== 'scan' ? 'flex' : 'none';
+        logo2.style.display = selected === 'scan' ? 'flex' : 'none';
+        panel.style.boxShadow = selected === 'scan' ? 'inset -8em 0 8em -11em rgb(70 133 224 / 72%)': 'inset -8em 0 8em -11em rgb(154 205 50 / 72%)';
+        if (selected === 'scan' ) {
+            closeFile();
+        }
+    }
+    option = selected;
 }
