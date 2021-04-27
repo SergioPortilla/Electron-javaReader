@@ -152,18 +152,23 @@ function setterTokenizer(input: any) {
 function sourceCodeResolver (input: any) {
     let tokenizers: Tokenizer[] = regexExpresion(tokenizerText.split(/\r?\n/gm));
     let tokenizer: HTMLElement | null  = document.getElementById("esteotro");
+    if (tokenizer) {
+        tokenizer.innerHTML = '';
+    }
     let file = input.files[0];
     let reader = new FileReader();
     reader.readAsText(file);
     reader.onload = function() {
         if (typeof reader.result === "string") {
             let word = reader.result.split(/\r?\n/gm);
-            let algo: string[] = [];
             word.forEach(line => {
                 for (let letter = 0; letter < line.length; letter++) {
                     for (let regex = 0; regex < tokenizers.length; regex ++) {
                         // @ts-ignore
                         if(tokenizers[regex].regex.test(line.charAt(letter))) {
+                            if (/ /g.test(line.charAt(letter))) {
+                                continue ;
+                            }
                             if (tokenizer) {
                                 tokenizer.innerHTML += '\n' +
                                     `<div class="panel">
@@ -174,6 +179,7 @@ function sourceCodeResolver (input: any) {
                                         </div>
                                     </div>`;
                             }
+                            // letter += 1;
                         }
                     }
                 }
